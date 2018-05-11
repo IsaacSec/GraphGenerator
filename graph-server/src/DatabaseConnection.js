@@ -14,7 +14,7 @@ class DatabaseConnection{
         
         this.mongoClient.connect( "mongodb://127.0.0.1:27017" , (err,client)=>{
         
-            DatabaseConnection.instance.myConn = client.db("defaultDatabase");
+            DatabaseConnection.instance.myConn = client.db("GameDatabase");
 
             DatabaseConnection.instance.client = client;
             
