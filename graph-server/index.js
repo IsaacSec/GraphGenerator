@@ -128,6 +128,37 @@ app.post('/getToken', (req, res, next) => {
     });
 });
 
+app.get('/getGraphs', (req, res, next) =>{
+    
+    Database.getInstance( (inst) => { 
+        
+        inst.findAll("graphs", {}, (err, items) => {
+            var jsonRes
+            
+            if (err) {
+                console.log("Error", err)
+                jsonRes = {
+                    "code": CODE.ERROR,
+                    "content": {
+                        "message": "Database Error",
+                        "description": err
+                    }
+                }
+            } else {
+                jsonRes = {
+                    "code": CODE.SUCCESS,
+                    "content": getVisualGraphsList(items)
+                }
+            }
+
+            res.setHeader('Content-Type', 'application/json')
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.send(jsonRes)
+            res.end()
+        }) 
+    })
+})
+
 app.post('/saveGraph', (req, res, next) =>{
     
     Database.getInstance( (inst) => { 
@@ -192,10 +223,10 @@ function findToken(token) {
     for (i in activeUsers) {
         var user = activeUsers[i]
         if (user.token == token) {
-            return true;
+            return true
         } 
     }
-    return false;
+    return false
 }
 
 function visualToDecisionGraph(json){
@@ -245,4 +276,14 @@ function visualToDecisionGraph(json){
     }
 
     return data    
+}
+
+function getVisualGraphsList (items) {
+    var json = []
+    
+    for (i in items) {
+        json.push(items[i].visualGraph)
+    }
+
+    return json
 }
