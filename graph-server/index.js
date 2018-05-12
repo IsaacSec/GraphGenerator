@@ -97,7 +97,6 @@ app.post('/getToken', (req, res, next) => {
             var newUser;
 
             if (items.length >= 1) {
-                let type = items[0].accountType
                 let generatedToken = generateToken()
                 
                 jsonRes = {
@@ -128,7 +127,7 @@ app.post('/getToken', (req, res, next) => {
     });
 });
 
-app.get('/getGraphs', (req, res, next) =>{
+app.get('/getGraphList', (req, res, next) =>{
     
     Database.getInstance( (inst) => { 
         
@@ -145,10 +144,60 @@ app.get('/getGraphs', (req, res, next) =>{
                     }
                 }
             } else {
+                console.log("CON ITEMS", getVisualGraphsList(items))
                 jsonRes = {
                     "code": CODE.SUCCESS,
                     "content": getVisualGraphsList(items)
                 }
+            }
+
+            console.log("ITEMS", items)
+
+            res.setHeader('Content-Type', 'application/json')
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.send(jsonRes)
+            res.end()
+        }) 
+    })
+})
+
+app.get('/getGraph', (req, res, next) =>{
+    
+    Database.getInstance( (inst) => { 
+        
+        let version = req.query.version
+        //console.log("REQ VER", req)
+        let pred = {
+            version: version/1
+        }
+
+        inst.findAll("graphs", pred, (err, items) => {
+            var jsonRes
+            
+            if (err) {
+                console.log("Error", err)
+                jsonRes = {
+                    "code": CODE.ERROR,
+                    "content": {
+                        "message": "Database Error",
+                        "description": err
+                    }
+                }
+            }
+
+            if (items.length >= 1) {
+                
+                jsonRes = {
+                    "code": CODE.SUCCESS,
+                    "content": items[0]
+                }
+
+            } else {
+                jsonRes = {
+                    code: CODE.ERROR,
+                    message: 'Not found',
+                    description: "The graph with version: "+version+" couldn't be found."
+                };
             }
 
             res.setHeader('Content-Type', 'application/json')
@@ -282,7 +331,11 @@ function getVisualGraphsList (items) {
     var json = []
     
     for (i in items) {
-        json.push(items[i].visualGraph)
+        let graph = {
+            "version": items[i].version,
+            "identifier": items[i].identifier
+        }
+        json.push(graph)
     }
 
     return json
