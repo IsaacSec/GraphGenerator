@@ -24,7 +24,10 @@ let CODE = {
 /* Routes */
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(bodyParse.urlencoded( {extended:false} ))
+app.use(bodyParse.urlencoded( {extended:true} ))
+
+// parse application/json
+app.use(bodyParse.json())
 
 app.use('/*', (req, res, next) => {
     console.log('+----------------|')
@@ -125,8 +128,6 @@ app.post('/getToken', (req, res, next) => {
     });
 });
 
-
-/*
 app.post('/saveGraph', (req, res, next) =>{
     
     Database.getInstance( (inst) => { 
@@ -134,11 +135,13 @@ app.post('/saveGraph', (req, res, next) =>{
         let visualGraph = req.body.content
 
         var content = {
+            "version": req.body.version,
+            "identifier": req.body.identifier,
             "visualGraph": visualGraph,
             "decisionGraph": visualToDecisionGraph(visualGraph)
         }
 
-        inst.insertRow("graphs", req.body, (err, res) => {
+        inst.insertRow(content, "graphs", (err, dbres) => {
             var jsonRes
             
             if (err) {
@@ -165,7 +168,6 @@ app.post('/saveGraph', (req, res, next) =>{
     })
 })
 
-*/
 
 /* Start server service */
 const server = app.listen(8080, () => {
@@ -197,5 +199,50 @@ function findToken(token) {
 }
 
 function visualToDecisionGraph(json){
-    
+    var data = []
+    let nodes = json.nodeDataArray
+    let links = json.linkDataArray 
+
+    for (i in nodes){
+        let node = nodes[i]
+        let decision = {
+            "id": node.key,
+            "question": node.text,
+            "character": node.character,
+            "optionYes": node.optionYes,
+            "optionNo": node.optionNo,
+            "childrenYes": [],
+            "childrenNo": [],
+            "effectYes": node.effectYes,
+            "effectNo": node.effectNo
+        }
+        
+        for (j in links) {
+            let link = links[j]
+            if (link.from == node.key) {
+                if (link.type === "Si") {
+                    decision.childrenYes.push(link.to)
+                } else {
+                    decision.childrenNo.push(link.to)
+                }
+            }
+        }        
+
+        var cYes = decision.childrenYes 
+        var cNo = decision.childrenNo
+
+        // Set default children
+
+        if (cYes.length == 0) {
+            cYes.push(nodes[0].key)
+        }
+
+        if (cNo.length == 0) {
+            cNo.push(nodes[0].key)
+        }
+
+        data.push(decision)
+    }
+
+    return data    
 }
