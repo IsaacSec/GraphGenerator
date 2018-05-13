@@ -1,0 +1,11 @@
+{
+  "code": 0,
+  "content": {
+    "history": [
+      {"version" : 1, "detail": "MyGraph", "id": "1234560"},
+      {"version" : 2, "detail": "MyGraph 2", "id": "123456012"},
+      {"version" : 1, "detail": "Test", "id": "1234560123"},
+      {"version" : 1, "detail": "GoJS Graph", "id": "1234560443"}
+    ]
+  }
+}
