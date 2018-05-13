@@ -1,0 +1,16 @@
+<button (click)="doLogout()"> Logout </button>
+<br>
+<a href="./graphEdit">Crear Gráfica</a>
+<br>
+<div *ngIf="graphList$">
+   <table>
+     <tr>
+       <th> Id </th>
+       <th> Nombre </th>
+       <th> Accion </th>
+     </tr>
+     <ng-container *ngFor="let graph of graphList$">
+         <tr><td><h2>{{graph.id}}</h2></td><td>{{graph.detail}}</td><td><a href="./graphEdit?id={{graph.id}}">Editar</a></td></tr>
+     </ng-container>
+   </table>
+</div>
