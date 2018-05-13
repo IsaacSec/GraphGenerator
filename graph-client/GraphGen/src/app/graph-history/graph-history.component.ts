@@ -6,6 +6,8 @@ import { GoElement } from '../models/go-element';
 
 import { GoHistoryService } from '../services/go-history.service';
 
+import { MdlDefaultTableModel, IMdlTableModelItem } from '@angular-mdl/core';
+
 @Component({
   selector: 'app-graph-history',
   templateUrl: './graph-history.component.html',
@@ -13,8 +15,14 @@ import { GoHistoryService } from '../services/go-history.service';
 })
 export class GraphHistoryComponent implements OnInit {
 
-
+  tableData: IMdlTableModelItem[];
   graphList$:GoElement[];
+
+  public tableModel = new MdlDefaultTableModel([
+    {key: 'version', name: 'Version'},
+    {key: 'identifier', name: 'Identifier'},
+    {key: 'link', name: 'Edit'}
+  ]);
 
   constructor(
     private router:Router,
@@ -27,6 +35,8 @@ export class GraphHistoryComponent implements OnInit {
     } else {
       this.historyl.getGraphHistory().subscribe((res) => {
         this.graphList$ = res;
+        this.tableData = this.getTableData();
+        this.tableModel.addAll(this.tableData);
         console.log(res);
       });
     }
@@ -37,4 +47,18 @@ export class GraphHistoryComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  getTableData(){
+    var data = [];
+
+    for (let i of this.graphList$) {
+      const row = {
+        'version': i.version,
+        'identifier': i.detail,
+        'link': '<a href="./graphEdit?id=' + i.id + '"><mdl-icon>edit</mdl-icon></a>'
+      };
+      data.push(row);
+    }
+
+    return data;
+  }
 }

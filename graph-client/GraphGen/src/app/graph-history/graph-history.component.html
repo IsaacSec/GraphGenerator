@@ -1,16 +1,87 @@
-<button (click)="doLogout()"> Logout </button>
-<br>
-<a href="./graphEdit">Crear Gráfica</a>
-<br>
-<div *ngIf="graphList$">
-   <table>
-     <tr>
-       <th> Id </th>
-       <th> Nombre </th>
-       <th> Accion </th>
-     </tr>
-     <ng-container *ngFor="let graph of graphList$">
-         <tr><td><h2>{{graph.id}}</h2></td><td>{{graph.detail}}</td><td><a href="./graphEdit?id={{graph.id}}">Editar</a></td></tr>
-     </ng-container>
-   </table>
-</div>
+<div class="demo-container" mdl-shadow="2">
+    <mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed>
+       
+      <mdl-layout-header>
+          <mdl-layout-header-row>
+             <mdl-layout-title> Username </mdl-layout-title>
+          </mdl-layout-header-row>
+       </mdl-layout-header>
+       
+       <mdl-layout-drawer>
+          <mdl-layout-title>Username</mdl-layout-title>
+          <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" (click)="doLogout()">Salir</a>
+          </nav>
+       </mdl-layout-drawer>
+       
+       <mdl-layout-content>
+          <!-- Your content goes here -->
+
+          <!--
+          <button (click)="doLogout()"> Logout </button>
+          <br>
+          <a href="./graphEdit">Crear Gráfica</a>
+          <br>
+          --> 
+          
+          <div class="outer">
+            <div class="middle">
+              <div class="inner">
+                  
+                <div>
+                  <a href="./graphEdit">
+                    <mdl-button mdl-button-type="fab" mdl-colored="primary" mdl-ripple>
+                        <mdl-icon>add</mdl-icon>
+                      </mdl-button>
+                  </a>
+                </div>
+                <br>
+                <div *ngIf="graphList$">
+                  <div class="left">
+                    <mdl-table mdl-shadow="2" [table-model]="tableModel"></mdl-table>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <!--
+          <div *ngIf="graphList$">
+             <table>
+               <tr>
+                 <th> Id </th>
+                 <th> Nombre </th>
+                 <th> Accion </th>
+               </tr>
+               <ng-container *ngFor="let graph of graphList$">
+                   <tr><td><h2>{{graph.id}}</h2></td><td>{{graph.detail}}</td><td><a href="./graphEdit?id={{graph.id}}">Editar</a></td></tr>
+               </ng-container>
+             </table>
+          </div>
+        -->
+          <!--
+          <div *ngIf="graphList$">
+            <div class="left">
+                <mdl-list>
+
+
+                  
+                    <ng-container *ngFor="let graph of graphList$">
+                      <mdl-list-item>
+                        <mdl-list-item-primary-content>
+                          <mdl-icon mdl-list-item-avatar>group_work</mdl-icon>
+                          <div><span>{{graph.detail}}</span></div>
+                          <div><span></span></div>
+                        </mdl-list-item-primary-content>
+                        <a href="./graphEdit?id={{graph.id}}"><mdl-icon>edit</mdl-icon></a>
+                      </mdl-list-item>
+                    </ng-container>
+                  </mdl-list>
+            </div>
+          </div>
+        -->
+
+       </mdl-layout-content>
+    </mdl-layout>
+ </div>
