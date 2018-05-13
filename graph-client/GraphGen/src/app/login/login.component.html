@@ -1,11 +1,41 @@
-<div>
-  <div>
-    <input [(ngModel)]="userName" placeholder="Nombre de Usuario"/>
-  </div>
-  <div>
-    <input type="password" [(ngModel)] = "userPassword" placeholder="Contraseña" >
-  </div>
-  <div>
-    <button (click)="doLogin()">Iniciar Sesion</button>
+<div class="outer">
+  <div class="middle">
+    <div class="inner">
+
+        <div class="container_h">
+            <mdl-card mdl-shadow="2">
+              <div style="background:rgb(73, 78, 80)">
+                <mdl-card-media>
+                  <div>
+                    <img class="center" src="http://zonaei.itesmtoluca.com/wp-content/uploads/2016/02/logotipo-zonaEi.png">
+                  </div>
+                </mdl-card-media>
+                <mdl-card-title>
+                  <h2 class="title" mdl-card-title-text>Inicio de sesión</h2>
+                </mdl-card-title>
+              </div>
+              
+              <mdl-card-supporting-text>
+                Introduce tus credenciales para poder acceder a la página
+              </mdl-card-supporting-text>
+              <mdl-card-actions mdl-card-border>
+                  <div>
+                      <div>
+                        <mdl-textfield type="text" label="Nombre de Usuario" [(ngModel)]="userName" floating-label></mdl-textfield>
+                      </div>
+                      <div>
+                        <mdl-textfield type="password" label="Contraseña" [(ngModel)]="userPassword" floating-label></mdl-textfield>
+                      </div>
+                      <div>
+                        <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
+                            Iniciar Sesion
+                        </button>
+                      </div>
+                    </div>
+              </mdl-card-actions>
+            </mdl-card>
+          </div>
+
+    </div>
   </div>
 </div>

@@ -15,7 +15,7 @@ import { GoHistoryService } from './services/go-history.service';
 import { GraphPanelComponent } from './graph-panel/graph-panel.component';
 import { GraphEditorComponent } from './graph-editor/graph-editor.component';
 
-
+import { MdlModule } from '@angular-mdl/core';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { GraphEditorComponent } from './graph-editor/graph-editor.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MdlModule
   ],
   providers: [
     LoginService,
