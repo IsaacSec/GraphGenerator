@@ -1,7 +1,8 @@
 <div>
-  <h1 style="text-align:center">
-    Welcome to {{title}}!
-  </h1>
+  <div style="text-align:center">
+    Nombre de Gráfica: 
+    <input type="text" [(ngModel)]="graphTitle">
+  </div>
   <app-graph-editor
    [model]="model"
    (nodeSelected)="showDetails($event)"
@@ -9,7 +10,7 @@
    (modelChanged)="onModelChanged($event)">
  </app-graph-editor>
   <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
-    Node Details:
+    Detalles de Nodo:
     <div><label>Llave: </label>{{node.key}}</div>
     <div><label>Pregunta: </label><input [(ngModel)]="data.text" name="text"></div>
     <div><label>Opción Si: </label><input [(ngModel)]="data.optionYes" name="optionYes"></div>
@@ -35,14 +36,11 @@
         </option>
       </select>
     </div>
-    <!--<div><label>Color: </label><input [(ngModel)]="data.color" name="color"></div>-->
-    <!--<div><label>Location: </label>{{node.location.x.toFixed(2)}}, {{node.location.y.toFixed(2)}}</div>
-    <div><label># Links: </label>{{node.linksConnected.count}}</div> -->
-    <button type="submit">Commit Details</button>
-    <button (click)="onCancelChanges()">Cancel Changes</button>
+    <button type="submit">Aplicar Cambios</button>
+    <button (click)="onCancelChanges()">Cancelar Cambios</button>
   </form>
   <form *ngIf="link" #form="ngForm" (ngSubmit)="onCommitLinkDetails()">
-    Node Details:
+    Detalles de Enlace:
     <div><label>Tipo: </label><!--<input [(ngModel)]="dataLink.type" name="type">-->
       <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
         <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
@@ -50,8 +48,8 @@
         </option>
       </select>
     </div>
-    <button type="submit">Commit Details</button>
-    <button (click)="onCancelLinkChanges()">Cancel Changes</button>
+    <button type="submit">Aplicar Cambios</button>
+    <button (click)="onCancelLinkChanges()">Cancelar Cambios</button>
   </form>
   <br>
   <a href='./history'>Regresar a Lista</a>

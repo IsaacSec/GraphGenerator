@@ -86,11 +86,7 @@ export class GraphEditorComponent implements OnInit {
     // initialize contents of Palette
     this.palette.model.nodeDataArray =
       [
-        { text: "Alpha", color: "lightblue" },
-        { text: "Beta", color: "orange" },
-        { text: "Gamma", color: "lightgreen" },
-        { text: "Delta", color: "pink" },
-        { text: "Epsilon", color: "yellow" }
+        { text: "Pregunta Nueva", color: "white", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0] }
       ];
   }
 
@@ -101,7 +97,7 @@ export class GraphEditorComponent implements OnInit {
 
   addNode(){
     console.log("add node");
-    this.diagram.model.addNodeData({ text: "Omega", color: "white", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0] })
+    this.diagram.model.addNodeData({ text: "Pregunta Nueva", color: "white", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0] })
   }
 
   exportModel(){
