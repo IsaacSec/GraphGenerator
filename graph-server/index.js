@@ -56,11 +56,12 @@ app.post('/validateToken', (req, res, next) => {
 
     if (findToken(token)) {
         json = {
-            "code": 0
+            "code": CODE.SUCCESS,
+            "content": "OK"
         }
     } else {
         json = {
-            "code": 1,
+            "code": CODE.ERROR,
             "content": {
                 "message": "Invalid token",
                 "description": "The given token has not been found in the server."
@@ -101,7 +102,9 @@ app.post('/getToken', (req, res, next) => {
                 
                 jsonRes = {
                     code: CODE.SUCCESS,
-                    token: generatedToken
+                    content: {
+                        token: generatedToken
+                    }
                 };
 
                 newUser = {
@@ -114,7 +117,9 @@ app.post('/getToken', (req, res, next) => {
             } else {
                 jsonRes = {
                     code: CODE.ERROR,
-                    message: 'Your account or password are incorrect'
+                    content: {
+                        message: 'Your account or password are incorrect'
+                    }
                 };
             }
 
@@ -195,8 +200,10 @@ app.get('/getGraph', (req, res, next) =>{
             } else {
                 jsonRes = {
                     code: CODE.ERROR,
-                    message: 'Not found',
-                    description: "The graph with version: "+version+" couldn't be found."
+                    content: {
+                        message: 'Not found',
+                        description: "The graph with version: "+version+" couldn't be found."
+                    }
                 };
             }
 

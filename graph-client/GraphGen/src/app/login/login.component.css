@@ -1,0 +1,37 @@
+img.center {
+    display: block;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+h2.title {
+    color: #939598
+}
+
+div.container_h{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+  
+div.container_v {
+    margin: 0
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 330px;
+}

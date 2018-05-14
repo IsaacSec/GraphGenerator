@@ -9,6 +9,8 @@ import { LoginService } from "../services/login.service";
 
 import { MdlDefaultTableModel, IMdlTableModelItem } from '@angular-mdl/core';
 
+import { MdlDefaultTableModel, IMdlTableModelItem } from '@angular-mdl/core';
+
 @Component({
   selector: 'app-graph-history',
   templateUrl: './graph-history.component.html',
@@ -19,7 +21,10 @@ export class GraphHistoryComponent implements OnInit {
   tableData: IMdlTableModelItem[];
   graphList$:GoElement[];
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f0aa65aa186bdfc13a9cc3f3242450c03b59d65e
   public tableModel = new MdlDefaultTableModel([
     {key: 'version', name: 'Version'},
     {key: 'identifier', name: 'Identifier'},
@@ -36,6 +41,7 @@ export class GraphHistoryComponent implements OnInit {
     if(localStorage.getItem("userToken") == null){
       this.router.navigate(['login']);
     } else {
+<<<<<<< HEAD
       this.loginService.validateToken(localStorage.getItem("userToken"))
       .subscribe(res =>{
         if(res){
@@ -51,6 +57,14 @@ export class GraphHistoryComponent implements OnInit {
         }
       })
 
+=======
+      this.historyl.getGraphHistory().subscribe((res) => {
+        this.graphList$ = res;
+        this.tableData = this.getTableData();
+        this.tableModel.addAll(this.tableData);
+        console.log(res);
+      });
+>>>>>>> f0aa65aa186bdfc13a9cc3f3242450c03b59d65e
     }
   }
 
@@ -72,6 +86,10 @@ export class GraphHistoryComponent implements OnInit {
     }
 
     return data;
+<<<<<<< HEAD
 }
 
+=======
+  }
+>>>>>>> f0aa65aa186bdfc13a9cc3f3242450c03b59d65e
 }
