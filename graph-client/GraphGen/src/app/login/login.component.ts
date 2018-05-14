@@ -28,13 +28,11 @@ export class LoginComponent implements OnInit {
     if(localStorage.getItem("userToken") != null){
       this.router.navigate(['history']);
     }
-    console.log(this.userName);
-    console.log(this.userPassword);
+
   }
 
   doLogin(){
-    console.log(this.userName);
-    console.log(this.userPassword);
+    
     if((this.userName !== undefined && this.userName != "") && (this.userPassword !== undefined && this.userPassword != "")){
     this.loginService.getToken(this.userName, this.userPassword).subscribe(res => {
       if(res != null){

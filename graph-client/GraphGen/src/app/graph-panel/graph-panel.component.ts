@@ -174,7 +174,7 @@ export class GraphPanelComponent implements OnInit {
           }
         });
       } else {
-        this.id = 0;
+        this.id = ""+0;
       }
     }
 

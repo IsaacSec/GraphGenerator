@@ -9,6 +9,7 @@
    (linkSelected)="showLinkDetails($event)"
    (modelChanged)="onModelChanged($event)">
  </app-graph-editor>
+ <button (click)="exportModel()"> Guardar Gráfica </button>
   <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
     Detalles de Nodo:
     <div><label>Llave: </label>{{node.key}}</div>

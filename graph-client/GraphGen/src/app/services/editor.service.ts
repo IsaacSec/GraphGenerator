@@ -61,7 +61,7 @@ export class EditorService {
         "identifier": identifier,
         "content": content
       }).map(res => {
-        if(code == 0){
+        if(res.code == 0){
           return true;
         } else {
           return false;
