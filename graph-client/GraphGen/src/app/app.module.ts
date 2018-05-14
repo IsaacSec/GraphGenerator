@@ -12,10 +12,14 @@ import { GraphHistoryComponent } from './graph-history/graph-history.component';
 
 import { LoginService } from './services/login.service';
 import { GoHistoryService } from './services/go-history.service';
+import { EditorService } from './services/editor.service';
+
+
 import { GraphPanelComponent } from './graph-panel/graph-panel.component';
 import { GraphEditorComponent } from './graph-editor/graph-editor.component';
 
 import { MdlModule } from '@angular-mdl/core';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { MdlModule } from '@angular-mdl/core';
   ],
   providers: [
     LoginService,
-    GoHistoryService
+    GoHistoryService,
+    EditorService
   ],
   bootstrap: [AppComponent]
 })

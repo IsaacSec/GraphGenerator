@@ -1,0 +1,231 @@
+{
+    "code": 0,
+    "content": {
+        "_id": "5af654450a496866f2e21db5",
+        "version": 2,
+        "identifier": "test2",
+        "visualGraph": {
+            "class": "go.GraphLinksModel",
+            "nodeDataArray": [
+                {
+                    "key": 1,
+                    "text": "Alpha",
+                    "color": "lightblue",
+                    "optionYes": "Respuesta Si",
+                    "optionNo": "Respuesta No",
+                    "character": "None",
+                    "effectYes": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "effectNo": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "loc": "0 0"
+                },
+                {
+                    "key": 2,
+                    "text": "Beta",
+                    "color": "orange",
+                    "optionYes": "Respuesta Si",
+                    "optionNo": "Respuesta No",
+                    "character": "None",
+                    "effectYes": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "effectNo": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "loc": "71 0"
+                },
+                {
+                    "key": 3,
+                    "text": "Gamma",
+                    "color": "lightgreen",
+                    "optionYes": "Respuesta Si",
+                    "optionNo": "Respuesta No",
+                    "character": "None",
+                    "effectYes": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "effectNo": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "loc": "0 70"
+                },
+                {
+                    "key": 4,
+                    "text": "Delta",
+                    "color": "pink",
+                    "optionYes": "Respuesta Si",
+                    "optionNo": "Respuesta No",
+                    "character": "None",
+                    "effectYes": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "effectNo": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "loc": "84 70"
+                }
+            ],
+            "linkDataArray": [
+                {
+                    "from": 1,
+                    "to": 2,
+                    "type": "Si",
+                    "color": "green"
+                },
+                {
+                    "from": 1,
+                    "to": 3,
+                    "type": "No",
+                    "color": "red"
+                },
+                {
+                    "from": 2,
+                    "to": 2,
+                    "type": "Si",
+                    "color": "green"
+                },
+                {
+                    "from": 3,
+                    "to": 4,
+                    "type": "No",
+                    "color": "red"
+                },
+                {
+                    "from": 4,
+                    "to": 1,
+                    "type": "Si",
+                    "color": "green"
+                }
+            ]
+        },
+        "decisionGraph": [
+            {
+                "id": 1,
+                "question": "Alpha",
+                "character": "None",
+                "optionYes": "Respuesta Si",
+                "optionNo": "Respuesta No",
+                "childrenYes": [
+                    2
+                ],
+                "childrenNo": [
+                    3
+                ],
+                "effectYes": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "effectNo": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            {
+                "id": 2,
+                "question": "Beta",
+                "character": "None",
+                "optionYes": "Respuesta Si",
+                "optionNo": "Respuesta No",
+                "childrenYes": [
+                    2
+                ],
+                "childrenNo": [
+                    1
+                ],
+                "effectYes": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "effectNo": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            {
+                "id": 3,
+                "question": "Gamma",
+                "character": "None",
+                "optionYes": "Respuesta Si",
+                "optionNo": "Respuesta No",
+                "childrenYes": [
+                    1
+                ],
+                "childrenNo": [
+                    4
+                ],
+                "effectYes": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "effectNo": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            {
+                "id": 4,
+                "question": "Delta",
+                "character": "None",
+                "optionYes": "Respuesta Si",
+                "optionNo": "Respuesta No",
+                "childrenYes": [
+                    1
+                ],
+                "childrenNo": [
+                    1
+                ],
+                "effectYes": [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "effectNo": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            }
+        ]
+    }
+}

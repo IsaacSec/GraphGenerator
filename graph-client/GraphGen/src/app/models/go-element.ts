@@ -4,8 +4,7 @@ export class GoElement {
   id: string;
   detail: string;
 
-  constructor(version:number, id:string, detail:string){
-    this.id = id;
+  constructor(version:number, detail:string){
     this.version = version;
     this.detail = detail;
   }

@@ -1,0 +1,7 @@
+{
+  "code" : 1,
+  "content" : {
+    "message" : "Invalid Token",
+    "description" : "The given token has not been found in the server."
+  }
+}

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GoElement } from '../models/go-element';
 
 import { GoHistoryService } from '../services/go-history.service';
+import { LoginService } from "../services/login.service";
 
 import { MdlDefaultTableModel, IMdlTableModelItem } from '@angular-mdl/core';
 
@@ -26,19 +27,30 @@ export class GraphHistoryComponent implements OnInit {
 
   constructor(
     private router:Router,
-    private historyl:GoHistoryService
+    private historyl:GoHistoryService,
+    private loginService:LoginService
   ) { }
 
   ngOnInit() {
     if(localStorage.getItem("userToken") == null){
       this.router.navigate(['login']);
     } else {
-      this.historyl.getGraphHistory().subscribe((res) => {
-        this.graphList$ = res;
-        this.tableData = this.getTableData();
-        this.tableModel.addAll(this.tableData);
-        console.log(res);
-      });
+
+      this.loginService.validateToken(localStorage.getItem("userToken"))
+      .subscribe(res =>{
+        if(res){
+          this.historyl.getGraphHistory().subscribe((res) => {
+            this.graphList$ = res;
+            this.tableData = this.getTableData();
+            this.tableModel.addAll(this.tableData);
+            console.log(res);
+          });
+        } else {
+          localStorage.removeItem("userToken");
+          this.router.navigate(['login']);
+        }
+      })
+
     }
   }
 
@@ -54,7 +66,7 @@ export class GraphHistoryComponent implements OnInit {
       const row = {
         'version': i.version,
         'identifier': i.detail,
-        'link': '<a href="./graphEdit?id=' + i.id + '"><mdl-icon>edit</mdl-icon></a>'
+        'link': '<a href="./graphEdit?id=' + i.version + '"><mdl-icon>edit</mdl-icon></a>'
       };
       data.push(row);
     }

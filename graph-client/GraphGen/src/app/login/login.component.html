@@ -14,7 +14,7 @@
                   <h2 class="title" mdl-card-title-text>Inicio de sesión</h2>
                 </mdl-card-title>
               </div>
-              
+
               <mdl-card-supporting-text>
                 Introduce tus credenciales para poder acceder a la página
               </mdl-card-supporting-text>
@@ -27,7 +27,7 @@
                         <mdl-textfield type="password" label="Contraseña" [(ngModel)]="userPassword" floating-label></mdl-textfield>
                       </div>
                       <div>
-                        <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
+                        <button (click)="doLogin()" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
                             Iniciar Sesion
                         </button>
                       </div>

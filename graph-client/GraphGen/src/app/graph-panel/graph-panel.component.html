@@ -188,3 +188,60 @@
        </mdl-layout-content>
     </mdl-layout>
  </div>
+<div>
+  <div style="text-align:center">
+    Nombre de Gráfica:
+    <input type="text" [(ngModel)]="graphTitle">
+  </div>
+  <app-graph-editor
+   [model]="model"
+   (nodeSelected)="showDetails($event)"
+   (linkSelected)="showLinkDetails($event)"
+   (modelChanged)="onModelChanged($event)">
+ </app-graph-editor>
+ <button (click)="exportModel()"> Guardar Gráfica </button>
+  <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
+    Detalles de Nodo:
+    <div><label>Llave: </label>{{node.key}}</div>
+    <div><label>Pregunta: </label><input [(ngModel)]="data.text" name="text"></div>
+    <div><label>Opción Si: </label><input [(ngModel)]="data.optionYes" name="optionYes"></div>
+    <div><label>Opción No: </label><input [(ngModel)]="data.optionNo" name="optionNo"></div>
+    <div><label>Personaje: </label><input [(ngModel)]="data.character" readonly="readonly" name="character"></div>
+    <div><label>Efectos Si: </label>
+      <input [(ngModel)]="data.effectYes[0]" size="4" name="effYes0">
+      <input [(ngModel)]="data.effectYes[1]" size="4" name="effYes1">
+      <input [(ngModel)]="data.effectYes[2]" size="4" name="effYes2">
+      <input [(ngModel)]="data.effectYes[3]" size="4" name="effYes3">
+    </div>
+    <div><label>Efectos No: </label>
+      <input [(ngModel)]="data.effectNo[0]" size="4" name="effNo0">
+      <input [(ngModel)]="data.effectNo[1]" size="4" name="effNo1">
+      <input [(ngModel)]="data.effectNo[2]" size="4" name="effNo2">
+      <input [(ngModel)]="data.effectNo[3]" size="4" name="effNo3">
+    </div>
+    <div>
+      <label>Color: </label>
+      <select [(ngModel)]="data.color" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let color of color_scheme" [value]="color.value" [attr.selected]="data.color == color.value ? true : null">
+          {{color.name}}
+        </option>
+      </select>
+    </div>
+    <button type="submit">Aplicar Cambios</button>
+    <button (click)="onCancelChanges()">Cancelar Cambios</button>
+  </form>
+  <form *ngIf="link" #form="ngForm" (ngSubmit)="onCommitLinkDetails()">
+    Detalles de Enlace:
+    <div><label>Tipo: </label><!--<input [(ngModel)]="dataLink.type" name="type">-->
+      <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
+          {{type.text}}
+        </option>
+      </select>
+    </div>
+    <button type="submit">Aplicar Cambios</button>
+    <button (click)="onCancelLinkChanges()">Cancelar Cambios</button>
+  </form>
+  <br>
+  <a href='./history'>Regresar a Lista</a>
+</div>
