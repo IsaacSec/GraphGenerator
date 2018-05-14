@@ -18,10 +18,14 @@ import { EditorService } from './services/editor.service';
 import { GraphPanelComponent } from './graph-panel/graph-panel.component';
 import { GraphEditorComponent } from './graph-editor/graph-editor.component';
 
+<<<<<<< HEAD
 
 import { MdlModule } from '@angular-mdl/core';
 
 
+=======
+import { MdlModule } from '@angular-mdl/core';
+>>>>>>> f0aa65aa186bdfc13a9cc3f3242450c03b59d65e
 
 @NgModule({
   declarations: [
