@@ -2,6 +2,11 @@ import { Component, ViewChild, ElementRef, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as go from 'gojs';
 
+import { EditorService } from '../services/editor.service';
+import { LoginService } from "../services/login.service";
+
+import { Graph } from '../models/graph';
+
 @Component({
   selector: 'app-graph-panel',
   templateUrl: './graph-panel.component.html',
@@ -11,6 +16,8 @@ export class GraphPanelComponent implements OnInit {
   //Detail
   @Input()
   graphTitle:string = "";
+
+  graphToLoad$:Graph = null;
 
   id:string = null;
 
@@ -33,20 +40,7 @@ export class GraphPanelComponent implements OnInit {
 
 
   model = null;
-  // model = new go.GraphLinksModel(
-  //   [
-  //     { key: 1, text: "Alpha", color: "lightblue", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-  //     { key: 2, text: "Beta", color: "orange", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-  //     { key: 3, text: "Gamma", color: "lightgreen", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-  //     { key: 4, text: "Delta", color: "pink", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  }
-  //   ],
-  //   [
-  //     { from: 1, to: 2, type:"Si", color:"green" },
-  //     { from: 1, to: 3, type:"No", color:"red" },
-  //     { from: 2, to: 2, type:"Si", color:"green" },
-  //     { from: 3, to: 4, type:"No", color:"red" },
-  //     { from: 4, to: 1, type:"Si", color:"green" }
-  //   ]);
+
 
   @ViewChild('text')
   private textField: ElementRef;
@@ -58,7 +52,9 @@ export class GraphPanelComponent implements OnInit {
 
   constructor(
     private aRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
+    private editorService: EditorService
   ){
     if(localStorage.getItem("userToken") == null){
       this.router.navigate(['login']);
@@ -158,36 +154,63 @@ export class GraphPanelComponent implements OnInit {
   ngOnInit(){
     //this.id = this.aRoute.snapshot.paramMap.get('id');
       console.log(this.id);
-      if(this.id == null){
-        this.model = new go.GraphLinksModel(
-          [
-
-          ],
-          [
-
-          ]);
-
-        this.graphTitle = "Nueva Gráfica";
-      } else {
-
       this.model = new go.GraphLinksModel(
         [
-          { key: 1, text: "Alpha", color: "lightblue", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-          { key: 2, text: "Beta", color: "orange", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-          { key: 3, text: "Gamma", color: "lightgreen", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-          { key: 4, text: "Delta", color: "pink", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  }
+
         ],
         [
-          { from: 1, to: 2, type:"Si", color:"green" },
-          { from: 1, to: 3, type:"No", color:"red" },
-          { from: 2, to: 2, type:"Si", color:"green" },
-          { from: 3, to: 4, type:"No", color:"red" },
-          { from: 4, to: 1, type:"Si", color:"green" }
+
         ]);
 
+      this.graphTitle = "Nueva Gráfica";
+      if(this.id != null){
+        this.loginService.validateToken(localStorage.getItem("userToken"))
+        .subscribe(res => {
+          if(res){
+            this.loadGraph();
+          } else {
+            localStorage.removeItem("userToken");
+            this.router.navigate(['login']);
+          }
+        });
+      } else {
+        this.id = 0;
+      }
+    }
 
-        this.graphTitle = "Mi Gráfica";
-     }
+    loadGraph():void{
+      this.editorService.getGraph(Number(this.id)).subscribe(res =>{
+        if(res != null){
+          this.graphToLoad$ = res;
+          this.model = new go.GraphLinksModel(
+            this.graphToLoad$.visualGraph.nodeDataArray,
+            this.graphToLoad$.visualGraph.linkDataArray
+          );
+          this.graphTitle = this.graphToLoad$.identifier;
+          this.id = ""+this.graphToLoad$.version;
+        } else {
+          console.log("Graph not found?");
+        }
+      });
+    }
 
-  }
+    exportModel(){
+      if(this.graphTitle !== undefined && this.graphTitle != ""){
+        console.log(this.model.toJson());
+        console.log(this.id);
+        console.log(this.graphTitle);
+        // this.editorService.saveGraph(Number(this.id), this.graphTitle, this.model.toJson())
+        // .subscribe(res => {
+        //   if(res){
+        //     console.log("Save ok");
+        //     this.router.navigate(['history']);
+        //   } else {
+        //     console.log("Save error");
+        //   }
+        // })
+      } else {
+        console.log("Campo de titulo vacio");
+      }
+    }
+
 }
