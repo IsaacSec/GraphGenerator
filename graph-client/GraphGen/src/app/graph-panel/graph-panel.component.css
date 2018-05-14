@@ -1,5 +1,10 @@
 div.container_h{
+    margin-top: 60px;
     display: flex;
     align-items: center;
     justify-content: center
+}
+
+.little_input {
+    width: 40px;
 }
