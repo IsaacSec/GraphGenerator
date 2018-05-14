@@ -1,4 +1,5 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as go from 'gojs';
 
 @Component({
@@ -7,7 +8,11 @@ import * as go from 'gojs';
   styleUrls: ['./graph-panel.component.css']
 })
 export class GraphPanelComponent implements OnInit {
-  title = 'My First GoJS App in Angular';
+  //Detail
+  @Input()
+  graphTitle:string = "";
+
+  id:string = null;
 
   color_scheme = [
     {value: "white", name:"Blanco"},
@@ -50,6 +55,18 @@ export class GraphPanelComponent implements OnInit {
   dataLink: any;
   node: go.Node;
   link: go.Link;
+
+  constructor(
+    private aRoute: ActivatedRoute,
+    private router: Router
+  ){
+    if(localStorage.getItem("userToken") == null){
+      this.router.navigate(['login']);
+    }
+    this.aRoute.queryParams.subscribe(params => {
+         this.id = params['id'];
+    }).unsubscribe();
+  }
 
   showDetails(node: go.Node | null) {
     this.node = node;
@@ -139,19 +156,38 @@ export class GraphPanelComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.model = new go.GraphLinksModel(
-      [
-        { key: 1, text: "Alpha", color: "lightblue", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-        { key: 2, text: "Beta", color: "orange", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-        { key: 3, text: "Gamma", color: "lightgreen", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
-        { key: 4, text: "Delta", color: "pink", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  }
-      ],
-      [
-        { from: 1, to: 2, type:"Si", color:"green" },
-        { from: 1, to: 3, type:"No", color:"red" },
-        { from: 2, to: 2, type:"Si", color:"green" },
-        { from: 3, to: 4, type:"No", color:"red" },
-        { from: 4, to: 1, type:"Si", color:"green" }
-      ]);
+    //this.id = this.aRoute.snapshot.paramMap.get('id');
+      console.log(this.id);
+      if(this.id == null){
+        this.model = new go.GraphLinksModel(
+          [
+
+          ],
+          [
+
+          ]);
+
+        this.graphTitle = "Nueva Gráfica";
+      } else {
+
+      this.model = new go.GraphLinksModel(
+        [
+          { key: 1, text: "Alpha", color: "lightblue", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
+          { key: 2, text: "Beta", color: "orange", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
+          { key: 3, text: "Gamma", color: "lightgreen", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  },
+          { key: 4, text: "Delta", color: "pink", optionYes: "Respuesta Si", optionNo: "Respuesta No", character: "None", effectYes: [0,0,0,0], effectNo: [0,0,0,0]  }
+        ],
+        [
+          { from: 1, to: 2, type:"Si", color:"green" },
+          { from: 1, to: 3, type:"No", color:"red" },
+          { from: 2, to: 2, type:"Si", color:"green" },
+          { from: 3, to: 4, type:"No", color:"red" },
+          { from: 4, to: 1, type:"Si", color:"green" }
+        ]);
+
+
+        this.graphTitle = "Mi Gráfica";
+     }
+
   }
 }
