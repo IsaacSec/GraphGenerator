@@ -30,118 +30,143 @@
                 </mdl-textfield>
               </div>
               
-              <app-graph-editor
-                [model]="model"
-                (nodeSelected)="showDetails($event)"
-                (linkSelected)="showLinkDetails($event)"
-                (modelChanged)="onModelChanged($event)">
-              </app-graph-editor>
-             
-              <br>
-
-              <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
-
-                <mdl-card mdl-shadow="2">
-                  <mdl-card-title mdl-card-expand>
-                    <h2 mdl-card-title-text>Detalles de Nodo</h2>
-                  </mdl-card-title>
-                  
-                  <mdl-card-supporting-text>
-                    <mdl-chip mdl-label="Llave:"></mdl-chip>
-                    <mdl-chip mdl-label="{{node.key}}"></mdl-chip>
-                    <mdl-textfield [(ngModel)]="data.text" label="Pregunta"  name="text" floating-label></mdl-textfield>
-                    <mdl-textfield [(ngModel)]="data.optionYes" label="Opción Si" name="optionYes" floating-label></mdl-textfield>
-                    <mdl-textfield [(ngModel)]="data.optionNo" label="Opción No" name="optionNo" floating-label></mdl-textfield>
-                    <mdl-textfield [(ngModel)]="data.character" label="Personaje" name="character" floating-label></mdl-textfield>
-                    
+              <table>
+                <tr>
+                  <td style="width:90%">
                     <div>
-                      <mdl-chip mdl-label="Efectos Si:"></mdl-chip>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[0]" name="effYes0" maxlength="3"></mdl-textfield>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[1]" name="effYes1" maxlength="3"></mdl-textfield>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[2]" name="effYes2" maxlength="3"></mdl-textfield>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[3]" name="effYes3" maxlength="3"></mdl-textfield>
+                      <app-graph-editor
+                        [model]="model"
+                        (nodeSelected)="showDetails($event)"
+                        (linkSelected)="showLinkDetails($event)"
+                        (modelChanged)="onModelChanged($event)">
+                      </app-graph-editor>
                     </div>
+                  </td>
 
-                    <div>
-                      <mdl-chip mdl-label="Efectos No:"></mdl-chip>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[0]" name="effNo0" maxlength="3"></mdl-textfield>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[1]" name="effNo1" maxlength="3"></mdl-textfield>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[2]" name="effNo2" maxlength="3"></mdl-textfield>
-                      <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[3]" name="effNo3" maxlength="3"></mdl-textfield>
-                    </div>
-
-                    <div>
-                      <mdl-chip mdl-label="Color:"></mdl-chip>
-                      <select [(ngModel)]="data.color" [ngModelOptions]="{standalone: true}">
-                        <option *ngFor="let color of color_scheme" [value]="color.value" [attr.selected]="data.color == color.value ? true : null">
-                          {{color.name}}
-                        </option>
-                      </select>
-                    </div>
-
-                  </mdl-card-supporting-text>
-                  
-                  <mdl-card-actions mdl-card-border>
-                    <button type="submit" mdl-button mdl-colored mdl-ripple>
-                      Guardar
-                    </button>
-                    <button (click)="onCancelLinkChanges()" mdl-button mdl-colored mdl-ripple>
-                      Cancelar
-                    </button>
-                  </mdl-card-actions>
-                </mdl-card>
-                    
-                <!--
-                Detalles de Nodo:
-                <br>
-                <br>
-                <div><label>Llave: </label>{{node.key}}</div>
-                <div><label>Pregunta: </label><input [(ngModel)]="data.text" name="text"></div>
-                <div><label>Opción Si: </label><input [(ngModel)]="data.optionYes" name="optionYes"></div>
-                <div><label>Opción No: </label><input [(ngModel)]="data.optionNo" name="optionNo"></div>
-                <div><label>Personaje: </label><input [(ngModel)]="data.character" readonly="readonly" name="character"></div>
-                <div><label>Efectos Si: </label>
-                  <input [(ngModel)]="data.effectYes[0]" size="4" name="effYes0">
-                  <input [(ngModel)]="data.effectYes[1]" size="4" name="effYes1">
-                  <input [(ngModel)]="data.effectYes[2]" size="4" name="effYes2">
-                  <input [(ngModel)]="data.effectYes[3]" size="4" name="effYes3">
-                </div>
-                <div><label>Efectos No: </label>
-                  <input [(ngModel)]="data.effectNo[0]" size="4" name="effNo0">
-                  <input [(ngModel)]="data.effectNo[1]" size="4" name="effNo1">
-                  <input [(ngModel)]="data.effectNo[2]" size="4" name="effNo2">
-                  <input [(ngModel)]="data.effectNo[3]" size="4" name="effNo3">
-                </div>
-                <div>
-                  <label>Color: </label>
-                  <select [(ngModel)]="data.color" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let color of color_scheme" [value]="color.value" [attr.selected]="data.color == color.value ? true : null">
-                      {{color.name}}
-                    </option>
-                  </select>
-                </div>
-                <button type="submit">Aplicar Cambios</button>
-                <button (click)="onCancelChanges()">Cancelar Cambios</button>
-              -->
-              </form>
-
-              <form *ngIf="link" #form="ngForm" (ngSubmit)="onCommitLinkDetails()">
-
-                  <mdl-card mdl-shadow="2">
-                      <mdl-card-title mdl-card-expand>
-                        <h2 mdl-card-title-text>Detalles de Enlace</h2>
-                      </mdl-card-title>
-                      
-                      <mdl-card-supporting-text>
-                        <div>
-                          <mdl-chip mdl-label="Tipo:"></mdl-chip>
-                          <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
-                            <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
-                              {{type.text}}
-                            </option>
-                          </select>
-                        </div>
-
+                  <td style="width:10%">
+                      <div>
+                        <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
+        
+                          <mdl-card mdl-shadow="2">
+                            <mdl-card-title mdl-card-expand>
+                              <h2 mdl-card-title-text>Detalles de Nodo</h2>
+                            </mdl-card-title>
+                            
+                            <mdl-card-supporting-text>
+                              <mdl-chip mdl-label="Llave:"></mdl-chip>
+                              <mdl-chip mdl-label="{{node.key}}"></mdl-chip>
+                              <mdl-textfield [(ngModel)]="data.text" label="Pregunta"  name="text" floating-label></mdl-textfield>
+                              <mdl-textfield [(ngModel)]="data.optionYes" label="Opción Si" name="optionYes" floating-label></mdl-textfield>
+                              <mdl-textfield [(ngModel)]="data.optionNo" label="Opción No" name="optionNo" floating-label></mdl-textfield>
+                              <mdl-textfield [(ngModel)]="data.character" label="Personaje" name="character" floating-label></mdl-textfield>
+                              
+                              <div>
+                                <mdl-chip mdl-label="Efectos Si:"></mdl-chip>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[0]" name="effYes0" maxlength="3"></mdl-textfield>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[1]" name="effYes1" maxlength="3"></mdl-textfield>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[2]" name="effYes2" maxlength="3"></mdl-textfield>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectYes[3]" name="effYes3" maxlength="3"></mdl-textfield>
+                              </div>
+        
+                              <div>
+                                <mdl-chip mdl-label="Efectos No:"></mdl-chip>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[0]" name="effNo0" maxlength="3"></mdl-textfield>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[1]" name="effNo1" maxlength="3"></mdl-textfield>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[2]" name="effNo2" maxlength="3"></mdl-textfield>
+                                <mdl-textfield class="little_input" [(ngModel)]="data.effectNo[3]" name="effNo3" maxlength="3"></mdl-textfield>
+                              </div>
+        
+                              <div>
+                                <mdl-chip mdl-label="Color:"></mdl-chip>
+                                <select [(ngModel)]="data.color" [ngModelOptions]="{standalone: true}">
+                                  <option *ngFor="let color of color_scheme" [value]="color.value" [attr.selected]="data.color == color.value ? true : null">
+                                    {{color.name}}
+                                  </option>
+                                </select>
+                              </div>
+        
+                            </mdl-card-supporting-text>
+                            
+                            <mdl-card-actions mdl-card-border>
+                              <button type="submit" mdl-button mdl-colored mdl-ripple>
+                                Guardar
+                              </button>
+                              <button (click)="onCancelLinkChanges()" mdl-button mdl-colored mdl-ripple>
+                                Cancelar
+                              </button>
+                            </mdl-card-actions>
+                          </mdl-card>
+                              
+                          <!--
+                          Detalles de Nodo:
+                          <br>
+                          <br>
+                          <div><label>Llave: </label>{{node.key}}</div>
+                          <div><label>Pregunta: </label><input [(ngModel)]="data.text" name="text"></div>
+                          <div><label>Opción Si: </label><input [(ngModel)]="data.optionYes" name="optionYes"></div>
+                          <div><label>Opción No: </label><input [(ngModel)]="data.optionNo" name="optionNo"></div>
+                          <div><label>Personaje: </label><input [(ngModel)]="data.character" readonly="readonly" name="character"></div>
+                          <div><label>Efectos Si: </label>
+                            <input [(ngModel)]="data.effectYes[0]" size="4" name="effYes0">
+                            <input [(ngModel)]="data.effectYes[1]" size="4" name="effYes1">
+                            <input [(ngModel)]="data.effectYes[2]" size="4" name="effYes2">
+                            <input [(ngModel)]="data.effectYes[3]" size="4" name="effYes3">
+                          </div>
+                          <div><label>Efectos No: </label>
+                            <input [(ngModel)]="data.effectNo[0]" size="4" name="effNo0">
+                            <input [(ngModel)]="data.effectNo[1]" size="4" name="effNo1">
+                            <input [(ngModel)]="data.effectNo[2]" size="4" name="effNo2">
+                            <input [(ngModel)]="data.effectNo[3]" size="4" name="effNo3">
+                          </div>
+                          <div>
+                            <label>Color: </label>
+                            <select [(ngModel)]="data.color" [ngModelOptions]="{standalone: true}">
+                              <option *ngFor="let color of color_scheme" [value]="color.value" [attr.selected]="data.color == color.value ? true : null">
+                                {{color.name}}
+                              </option>
+                            </select>
+                          </div>
+                          <button type="submit">Aplicar Cambios</button>
+                          <button (click)="onCancelChanges()">Cancelar Cambios</button>
+                        -->
+                        </form>
+        
+                        <form *ngIf="link" #form="ngForm" (ngSubmit)="onCommitLinkDetails()">
+        
+                            <mdl-card mdl-shadow="2">
+                                <mdl-card-title mdl-card-expand>
+                                  <h2 mdl-card-title-text>Detalles de Enlace</h2>
+                                </mdl-card-title>
+                                
+                                <mdl-card-supporting-text>
+                                  <div>
+                                    <mdl-chip mdl-label="Tipo:"></mdl-chip>
+                                    <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
+                                      <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
+                                        {{type.text}}
+                                      </option>
+                                    </select>
+                                  </div>
+        
+                                  <div><label>Tipo: </label>
+                                    <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
+                                      <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
+                                        {{type.text}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </mdl-card-supporting-text>
+                                
+                                <mdl-card-actions mdl-card-border>
+                                  <button type="submit" mdl-button mdl-colored mdl-ripple>
+                                    Guardar
+                                  </button>
+                                  <button (click)="onCancelLinkChanges()" mdl-button mdl-colored mdl-ripple>
+                                    Cancelar
+                                  </button>
+                                </mdl-card-actions>
+                              </mdl-card>
+                        <!--
                         <div><label>Tipo: </label>
                           <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
@@ -149,46 +174,39 @@
                             </option>
                           </select>
                         </div>
-                      </mdl-card-supporting-text>
-                      
-                      <mdl-card-actions mdl-card-border>
-                        <button type="submit" mdl-button mdl-colored mdl-ripple>
-                          Guardar
+      
+                        <button type="submit">Aplicar Cambios</button>
+                        <button (click)="onCancelLinkChanges()">Cancelar Cambios</button>
+                      -->
+                      </form>
+                        
+                      <br>
+                      <button (click)="exportModel()" mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
+                        Guardar Gráfica
+                      </button>
+                      <br>
+      
+                      <br>
+                      <a href='./history'>
+                        <button mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
+                          Regresar a Lista
                         </button>
-                        <button (click)="onCancelLinkChanges()" mdl-button mdl-colored mdl-ripple>
-                          Cancelar
-                        </button>
-                      </mdl-card-actions>
-                    </mdl-card>
-                <!--
-                <div><label>Tipo: </label>
-                  <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
-                      {{type.text}}
-                    </option>
-                  </select>
-                </div>
-
-                <button type="submit">Aplicar Cambios</button>
-                <button (click)="onCancelLinkChanges()">Cancelar Cambios</button>
-              -->
-              </form>
-
-
-              <br>
-              <a href='./history'>
-                <button mdl-button mdl-button-type="raised" mdl-colored="accent" mdl-ripple>
-                  Regresar a Lista
-                </button>
-              </a>
+                      </a>
+        
+                    </div>
+                  </td>
+                </tr>
+              </table>
 
             </div>
           </div>
-
+          
        </mdl-layout-content>
     </mdl-layout>
  </div>
-<div>
+
+<!--
+ <div>
   <div style="text-align:center">
     Nombre de Gráfica:
     <input type="text" [(ngModel)]="graphTitle">
@@ -232,7 +250,7 @@
   </form>
   <form *ngIf="link" #form="ngForm" (ngSubmit)="onCommitLinkDetails()">
     Detalles de Enlace:
-    <div><label>Tipo: </label><!--<input [(ngModel)]="dataLink.type" name="type">-->
+    <div><label>Tipo: </label>
       <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
         <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
           {{type.text}}
@@ -245,3 +263,4 @@
   <br>
   <a href='./history'>Regresar a Lista</a>
 </div>
+-->
