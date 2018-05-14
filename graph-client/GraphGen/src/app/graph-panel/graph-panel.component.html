@@ -1,58 +1,80 @@
-<div>
-  <h1 style="text-align:center">
-    Welcome to {{title}}!
-  </h1>
-  <app-graph-editor
-   [model]="model"
-   (nodeSelected)="showDetails($event)"
-   (linkSelected)="showLinkDetails($event)"
-   (modelChanged)="onModelChanged($event)">
- </app-graph-editor>
-  <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
-    Node Details:
-    <div><label>Llave: </label>{{node.key}}</div>
-    <div><label>Pregunta: </label><input [(ngModel)]="data.text" name="text"></div>
-    <div><label>Opción Si: </label><input [(ngModel)]="data.optionYes" name="optionYes"></div>
-    <div><label>Opción No: </label><input [(ngModel)]="data.optionNo" name="optionNo"></div>
-    <div><label>Personaje: </label><input [(ngModel)]="data.character" readonly="readonly" name="character"></div>
-    <div><label>Efectos Si: </label>
-      <input [(ngModel)]="data.effectYes[0]" size="4" name="effYes0">
-      <input [(ngModel)]="data.effectYes[1]" size="4" name="effYes1">
-      <input [(ngModel)]="data.effectYes[2]" size="4" name="effYes2">
-      <input [(ngModel)]="data.effectYes[3]" size="4" name="effYes3">
-    </div>
-    <div><label>Efectos No: </label>
-      <input [(ngModel)]="data.effectNo[0]" size="4" name="effNo0">
-      <input [(ngModel)]="data.effectNo[1]" size="4" name="effNo1">
-      <input [(ngModel)]="data.effectNo[2]" size="4" name="effNo2">
-      <input [(ngModel)]="data.effectNo[3]" size="4" name="effNo3">
-    </div>
-    <div>
-      <label>Color: </label>
-      <select [(ngModel)]="data.color" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let color of color_scheme" [value]="color.value" [attr.selected]="data.color == color.value ? true : null">
-          {{color.name}}
-        </option>
-      </select>
-    </div>
-    <!--<div><label>Color: </label><input [(ngModel)]="data.color" name="color"></div>-->
-    <!--<div><label>Location: </label>{{node.location.x.toFixed(2)}}, {{node.location.y.toFixed(2)}}</div>
-    <div><label># Links: </label>{{node.linksConnected.count}}</div> -->
-    <button type="submit">Commit Details</button>
-    <button (click)="onCancelChanges()">Cancel Changes</button>
-  </form>
-  <form *ngIf="link" #form="ngForm" (ngSubmit)="onCommitLinkDetails()">
-    Node Details:
-    <div><label>Tipo: </label><!--<input [(ngModel)]="dataLink.type" name="type">-->
-      <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
-          {{type.text}}
-        </option>
-      </select>
-    </div>
-    <button type="submit">Commit Details</button>
-    <button (click)="onCancelLinkChanges()">Cancel Changes</button>
-  </form>
-  <br>
-  <a href='./history'>Regresar a Lista</a>
-</div>
+<div class="demo-container" mdl-shadow="2">
+    <mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed>
+       
+      <mdl-layout-header>
+          <mdl-layout-header-row>
+             <mdl-layout-title> Username </mdl-layout-title>
+          </mdl-layout-header-row>
+       </mdl-layout-header>
+       
+       <mdl-layout-drawer>
+          <mdl-layout-title>Username</mdl-layout-title>
+          <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" (click)="doLogout()">Salir</a>
+          </nav>
+       </mdl-layout-drawer>
+       
+       <mdl-layout-content>
+        
+          <div class="container">
+              <h1 style="text-align:center">
+                Welcome to {{title}}!
+              </h1>
+              <app-graph-editor
+               [model]="model"
+               (nodeSelected)="showDetails($event)"
+               (linkSelected)="showLinkDetails($event)"
+               (modelChanged)="onModelChanged($event)">
+             </app-graph-editor>
+              <form *ngIf="node" #form="ngForm" (ngSubmit)="onCommitDetails()">
+                Node Details:
+                <div><label>Llave: </label>{{node.key}}</div>
+                <div><label>Pregunta: </label><input [(ngModel)]="data.text" name="text"></div>
+                <div><label>Opción Si: </label><input [(ngModel)]="data.optionYes" name="optionYes"></div>
+                <div><label>Opción No: </label><input [(ngModel)]="data.optionNo" name="optionNo"></div>
+                <div><label>Personaje: </label><input [(ngModel)]="data.character" readonly="readonly" name="character"></div>
+                <div><label>Efectos Si: </label>
+                  <input [(ngModel)]="data.effectYes[0]" size="4" name="effYes0">
+                  <input [(ngModel)]="data.effectYes[1]" size="4" name="effYes1">
+                  <input [(ngModel)]="data.effectYes[2]" size="4" name="effYes2">
+                  <input [(ngModel)]="data.effectYes[3]" size="4" name="effYes3">
+                </div>
+                <div><label>Efectos No: </label>
+                  <input [(ngModel)]="data.effectNo[0]" size="4" name="effNo0">
+                  <input [(ngModel)]="data.effectNo[1]" size="4" name="effNo1">
+                  <input [(ngModel)]="data.effectNo[2]" size="4" name="effNo2">
+                  <input [(ngModel)]="data.effectNo[3]" size="4" name="effNo3">
+                </div>
+                <div>
+                  <label>Color: </label>
+                  <select [(ngModel)]="data.color" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let color of color_scheme" [value]="color.value" [attr.selected]="data.color == color.value ? true : null">
+                      {{color.name}}
+                    </option>
+                  </select>
+                </div>
+                <!--<div><label>Color: </label><input [(ngModel)]="data.color" name="color"></div>-->
+                <!--<div><label>Location: </label>{{node.location.x.toFixed(2)}}, {{node.location.y.toFixed(2)}}</div>
+                <div><label># Links: </label>{{node.linksConnected.count}}</div> -->
+                <button type="submit">Commit Details</button>
+                <button (click)="onCancelChanges()">Cancel Changes</button>
+              </form>
+              <form *ngIf="link" #form="ngForm" (ngSubmit)="onCommitLinkDetails()">
+                Node Details:
+                <div><label>Tipo: </label><!--<input [(ngModel)]="dataLink.type" name="type">-->
+                  <select [(ngModel)]="dataLink.type" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let type of link_types" [value]="type.text" [attr.selected]="dataLink.type == type.text ? true : null">
+                      {{type.text}}
+                    </option>
+                  </select>
+                </div>
+                <button type="submit">Commit Details</button>
+                <button (click)="onCancelLinkChanges()">Cancel Changes</button>
+              </form>
+              <br>
+              <a href='./history'>Regresar a Lista</a>
+            </div>
+
+       </mdl-layout-content>
+    </mdl-layout>
+ </div>
